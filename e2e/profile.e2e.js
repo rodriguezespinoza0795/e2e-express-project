@@ -11,7 +11,7 @@ describe('tests for /profile path', () => {
   let accessToken = null;
 
   beforeAll(async () => {
-    app = createApp();
+    app = await createApp();
     server = app.listen(9000);
     api = request(app);
     await upSeed();

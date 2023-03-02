@@ -10,7 +10,7 @@ describe('tests for /users path', () => {
   let api = null;
 
   beforeAll(async () => {
-    app = createApp();
+    app = await createApp();
     server = app.listen(9000);
     api = request(app);
     await upSeed();

@@ -3,14 +3,16 @@ const cors = require('cors');
 
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/error.handler');
 const routerApi = require('./routes');
+const useGraphql = require('./graphql');
 const { checkApiKey } = require('./middlewares/auth.handler');
 
-const createApp = () => {
+
+const createApp = async () => {
   const app = express();
 
   app.use(express.json());
 
-  const whitelist = ['http://localhost:8080', 'https://myapp.co'];
+  const whitelist = ['http://localhost:8080', 'https://myapp.co', 'http://localhost:3000'];
   const options = {
     origin: (origin, callback) => {
       if (whitelist.includes(origin) || !origin) {
@@ -37,6 +39,7 @@ const createApp = () => {
   });
 
   routerApi(app);
+  await useGraphql(app);
 
   app.use(logErrors);
   app.use(ormErrorHandler);

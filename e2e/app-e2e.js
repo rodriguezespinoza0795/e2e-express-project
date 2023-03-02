@@ -8,8 +8,8 @@ describe('tests for app', () => {
   let server = null;
   let api = null;
 
-  beforeAll(() => {
-    app = createApp();
+  beforeAll(async () => {
+    app = await createApp();
     server = app.listen(9000);
     api = request(app);
   });
